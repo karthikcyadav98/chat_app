@@ -74,10 +74,12 @@ const Chat = () => {
 	const [postMessage] = useMutation(POST_MESSAGES);
 
 	const onSend = () => {
-		if (userDet.content.length > 0) {
+		if (userDet.content.length > 0 && userDet.user.length > 0) {
 			postMessage({
 				variables: userDet
 			});
+		} else {
+			alert('Fields cannot be empty');
 		}
 		setUserDet({...userDet, content: ''});
 	};
@@ -88,6 +90,7 @@ const Chat = () => {
 			<Row>
 				<Col xs={2} style={{padding: 0}}>
 					<FormInput
+						placeholder="Username"
 						label="User"
 						value={userDet.user}
 						onChange={e => {
@@ -98,6 +101,7 @@ const Chat = () => {
 
 				<Col xs={8}>
 					<FormInput
+						placeholder="Type your message here..."
 						label="Content"
 						value={userDet.content}
 						onChange={e => {
